@@ -1,0 +1,37 @@
+// Teacher Content Upload Flow
+digraph "Content Ingestion" {
+	fontsize=16 label="Content Ingestion Flow" rankdir=TB
+	TU [label="Teacher Uploads File
+(Streamlit UI)" fillcolor=lightgreen shape=ellipse style=filled]
+	API [label="Backend API
+(/api/teacher/upload-content/)" shape=box]
+	VAL [label="Validate Request
+(Is Teacher? Owns Course? File Type?)" fillcolor=lightgrey shape=diamond style=filled]
+	SAVE [label="Save Original File
+(Media Folder: /course_name/)" shape=box]
+	PROC [label="Call process_and_embed_document" shape=box]
+	EXT [label="Extract Text
+(PyPDF2/python-docx/read)" shape=box]
+	CHK [label="Chunk Text
+(RecursiveCharacterTextSplitter)" shape=box]
+	EMB [label="Embed Chunks
+(Google Embeddings)" shape=box]
+	VDB [label="Add Chunks & Metadata to ChromaDB
+(incl. course_id)" shape=cylinder]
+	SUCC [label="Return Success (201)" fillcolor=lightgreen shape=ellipse style=filled]
+	FAIL [label="Return Error (500/400/403)" fillcolor=lightcoral shape=ellipse style=filled]
+	TU -> API
+	API -> VAL
+	VAL -> SAVE
+	VAL -> FAIL
+	SAVE -> PROC
+	PROC -> EXT
+	EXT -> CHK
+	CHK -> EMB
+	EMB -> VDB
+	VDB -> SUCC
+	EXT -> FAIL
+	CHK -> FAIL
+	EMB -> FAIL
+	VDB -> FAIL
+}

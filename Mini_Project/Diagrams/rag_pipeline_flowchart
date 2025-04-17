@@ -1,0 +1,45 @@
+// Chatbot RAG Query Flow
+digraph "RAG Pipeline" {
+	fontsize=16 label="Chatbot RAG Query Flow" rankdir=TB
+	SQ [label="Student Asks Query
+(via Streamlit)" fillcolor=lightblue shape=ellipse style=filled]
+	AQ [label="Backend API
+(/api/chatbot/query/)" shape=box]
+	ID [label="Intent Check:
+Academic or Content?" fillcolor=lightgrey shape=diamond style=filled]
+	ACAD [label="Fetch Academic Data
+(DB Query)" shape=box]
+	ENR [label="Get Student's
+Enrolled Course IDs" shape=box]
+	EQ [label="Embed User Query
+(Google Embeddings)" shape=box]
+	VDB [label="Search ChromaDB
+(Filter by Course IDs)" shape=cylinder]
+	RC [label="Retrieve Relevant
+Context Chunks" shape=note]
+	BP [label="Build Prompt
+(Query + Context + Template)" shape=box]
+	LLM [label="Call Google LLM
+(Gemini Flash/Pro)" shape=cds]
+	FR [label="Format Response" shape=box]
+	SR [label="Send Response
+to Streamlit" fillcolor=lightblue shape=ellipse style=filled]
+	NF [label="\"Cannot Find Info\"
+Response" fillcolor=lightcoral shape=box style=filled]
+	SQ -> AQ
+	AQ -> ID
+	ID -> ACAD [label=" Academic"]
+	ACAD -> FR
+	ID -> ENR [label=" Content"]
+	ENR -> EQ
+	EQ -> VDB
+	VDB -> RC
+	RC -> BP
+	EQ -> BP [arrowhead=none style=dashed]
+	RC -> BP [arrowhead=none style=dashed]
+	BP -> LLM
+	LLM -> FR [label=" Answer Found"]
+	LLM -> NF [label=" Answer NOT Found"]
+	NF -> SR
+	FR -> SR
+}
