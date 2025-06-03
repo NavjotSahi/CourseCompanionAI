@@ -28,9 +28,26 @@ This project integrates:
 ## 📦 Folder Structure
 
 ```bash
-├── backend/               # Django REST Framework APIs
-├── frontend/              # Streamlit-based UI
-├── chatbot/               # LangChain RAG pipeline
-├── vectorstore/           # ChromaDB setup
-├── docs/                  # IEEE Paper and diagrams
-├── README.md              # You're here!
+├── backend/                       # Backend logic powered by Django REST Framework
+│   ├── api/                       # Core API components (chatbot logic, models, etc.)
+│   │   ├── chatbot_utils.py       # Utilities for chatbot logic and RAG handling
+│   │   ├── models.py              # Django ORM models (User, Course, Document, etc.)
+│   │   ├── permissions.py         # Custom role-based access controls (e.g., Student, Instructor)
+│   │   ├── serializers.py         # Data validation and serialization for API inputs/outputs
+│   │   ├── url.py                 # Route definitions specific to the API
+│   │   ├── views.py               # API view logic (RAG endpoints, file upload, etc.)
+│   ├── core_settings/            # Global Django project settings and configuration
+│   │   ├── urls.py                # Root URL routing for the backend server
+│   ├── manage.py                 # Django CLI entry point
+│
+├── frontend_dashboard/           # Streamlit-based user-facing dashboard
+│   ├── app.py                    # Main Streamlit app (login, chatbot, performance dashboard)
+│   ├── requirements.txt          # Python dependencies for the frontend
+│
+├── Diagrams/                     # Architecture diagrams (LangChain pipeline, system design)
+│
+├── chroma_db_persistent/         # Local ChromaDB vector store (persisted embeddings + metadata)
+│
+├── media_files/                  # Uploaded course materials (PDFs, docs) by educators
+│
+├── README.md                     # Project overview, setup instructions, and usage guide
