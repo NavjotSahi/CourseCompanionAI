@@ -52,7 +52,7 @@ This project integrates:
 │
 ├── README.md                     # Project overview, setup instructions, and usage guide
 
----
+```
 
 ## 👥 Collaborators
 
