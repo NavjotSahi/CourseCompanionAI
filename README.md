@@ -51,3 +51,13 @@ This project integrates:
 ├── media_files/                  # Uploaded course materials (PDFs, docs) by educators
 │
 ├── README.md                     # Project overview, setup instructions, and usage guide
+
+---
+
+## 👥 Collaborators
+
+Navjot Singh Sahi
+
+Abhishek Gupta
+
+Manshul Singla
